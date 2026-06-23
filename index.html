@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>金門戰地浪漫之旅 | 隨身動態行程助手</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
+            background-color: #F7F6F3;
+            background-image: radial-gradient(#3B7AAE 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-opacity: 0.05;
+        }
+        /* 隱藏滾動條 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 當進入編輯狀態時的韓系微光外框 */
+        [contenteditable="true"]:focus {
+            outline: 2px dashed #3B7AAE;
+            outline-offset: 4px;
+            background-color: #F4F8FA;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-28">
+
+    <div class="max-w-md mx-auto bg-[#FDFDFD]/95 min-h-screen shadow-2xl relative border-x border-gray-100 flex flex-col">
+        
+        <header class="bg-[#3B7AAE] text-white pt-8 pb-12 px-6 rounded-b-[2.5rem] shadow-lg relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="bg-white/20 text-xs px-3 py-1 rounded-full backdrop-blur-sm font-medium tracking-wider">
+                    <i class="fa-solid fa-calendar-days mr-1"></i> 2026.06.27 - 06.29
+                </span>
+                <span class="text-white/80 text-sm"><i class="fa-solid fa-cloud-sun mr-1"></i> 29°C ~ 33°C</span>
+            </div>
+            <h1 class="text-2xl font-bold tracking-tight mb-1">金門．夏日輕旅行 ✈️</h1>
+            <p class="text-white/80 text-xs font-light">💡 點擊卡片右上角 📝 即可隨時動態修改行程內容</p>
+        </header>
+
+        <div class="px-4 -mt-6 z-10">
+            <div class="bg-white p-1.5 rounded-2xl shadow-md flex justify-between gap-2 border border-slate-100">
+                <button onclick="switchDay(1)" id="btn-day1" class="day-tab flex-1 py-3 px-2 rounded-xl text-center transition-all duration-300 bg-[#3B7AAE] text-white shadow-sm">
+                    <div class="text-xs opacity-80 font-medium">06/27</div>
+                    <div class="text-sm font-bold">DAY 1 (六)</div>
+                </button>
+                <button onclick="switchDay(2)" id="btn-day2" class="day-tab flex-1 py-3 px-2 rounded-xl text-center transition-all duration-300 text-slate-400 hover:bg-slate-50">
+                    <div class="text-xs opacity-80 font-medium">06/28</div>
+                    <div class="text-sm font-bold">DAY 2 (日)</div>
+                </button>
+                <button onclick="switchDay(3)" id="btn-day3" class="day-tab flex-1 py-3 px-2 rounded-xl text-center transition-all duration-300 text-slate-400 hover:bg-slate-50">
+                    <div class="text-xs opacity-80 font-medium">06/29</div>
+                    <div class="text-sm font-bold">DAY 3 (一)</div>
+                </button>
+            </div>
+        </div>
+
+        <main class="flex-1 px-4 pt-6 pb-4">
+            
+            <div id="day1-content" class="day-content space-y-4">
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-blue-50 text-[#3B7AAE] text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-plane mr-1"></i>交通</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">立榮航空 B7-8955 (07:50 - 08:55)</h3>
+                        <p class="text-sm text-slate-500">RMQ 台中清泉崗 ➔ KNH 金門尚義</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5">
+                        <span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-utensils mr-1"></i>食物</span>
+                        <span class="bg-pink-50 text-pink-500 text-xs font-bold px-2 py-1 rounded-lg">#必吃</span>
+                    </div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">喬安牧場 (11:30)</h3>
+                        <p class="text-sm text-slate-500 mb-3">在地知名酒糟牛肉料理，肉質鮮美濃郁。</p>
+                        <div class="border-t border-dashed border-slate-100 pt-3 text-xs space-y-1.5 text-slate-600">
+                            <div><span class="text-amber-500">💡 拍照技巧：</span> 特寫熱騰騰端上桌的現燙酒糟牛肉麵！</div>
+                            <div><span class="text-sky-500">🚗 停車加油：</span> 店前有專屬機車與汽車停車格。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5">
+                        <span class="bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-camera mr-1"></i>景點</span>
+                        <span class="bg-pink-50 text-pink-500 text-xs font-bold px-2 py-1 rounded-lg">#必拍</span>
+                    </div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">小金門探索（下午行程）</h3>
+                        <p class="text-sm text-slate-500 mb-3">造訪湖井頭戰史館、沙溪堡、九宮坑道。</p>
+                        <div class="border-t border-dashed border-slate-100 pt-3 text-xs space-y-1.5 text-slate-600">
+                            <div><span class="text-amber-500">💡 拍照技巧：</span> 沙溪堡木棧道延伸至海邊超美。</div>
+                            <div><span class="text-sky-500">🚗 停車加油：</span> 景點皆設有免費停車場。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5">
+                        <span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-mug-saucer mr-1"></i>食物</span>
+                    </div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">膩咖啡</h3>
+                        <p class="text-sm text-slate-500 mb-2">充滿綠意與老宅神韻的隱密咖啡店。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-utensils mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">喜豐樓 (18:00)</h3>
+                        <p class="text-sm text-slate-500 mb-2">傳統金門辦桌手路菜，高粱炒海產不容錯過。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5"><span class="bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-moon mr-1"></i>景點</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">水頭聚落</h3>
+                        <p class="text-sm text-slate-500 mb-2">全金門最華麗的閩南與洋樓聚落，夜間點燈別具風情。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-bowl-food mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">金城飯店 (21:30)</h3>
+                        <p class="text-sm text-slate-500 mb-2">在地人熱愛的台式小吃與香脆排骨。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="day2-content" class="day-content space-y-4 hidden">
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5">
+                        <span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-utensils mr-1"></i>食物</span>
+                        <span class="bg-pink-50 text-pink-500 text-xs font-bold px-2 py-1 rounded-lg">#必吃</span>
+                    </div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">永春廣東粥</h3>
+                        <p class="text-sm text-slate-500 mb-2">金門必吃傳統「無米粥」，配金門在地金黃油條。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5"><span class="bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-camera mr-1"></i>景點</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">翟山坑道</h3>
+                        <p class="text-sm text-slate-500 mb-2">鬼斧神工的戰備水道，水面如鏡倒影極其震撼。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-utensils mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">喜悅小館 (11:30)</h3>
+                        <p class="text-sm text-slate-500 mb-2">精緻的中式家常與在地風味熱炒。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-flag mr-1"></i>景點</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">北山、古寧頭</h3>
+                        <p class="text-sm text-slate-500 mb-2">見證古寧頭戰役歷史，觀賞滿是彈孔的北山洋樓與播音牆。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-cake-slice mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">百花洋樓喫茶</h3>
+                        <p class="text-sm text-slate-500 mb-2">在老洋樓裡享受悠閒的茶點時光。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-utensils mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">記德海鮮餐廳 (18:00)</h3>
+                        <p class="text-sm text-slate-500 mb-2">金門超人氣海鮮，高粱嗆蟹、生炒沙蟲是在地名菜。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-person-walking mr-1"></i>活動</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">夜遊後浦小鎮</h3>
+                        <p class="text-sm text-slate-500 mb-2">慢步總兵署、邱良功母代步坊，聽老金門故事。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-beer-mugs-beer mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">大廟口熱炒</h3>
+                        <p class="text-sm text-slate-500 mb-2">廟前廣場露天開吃，極具在地煙火氣。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="day3-content" class="day-content space-y-4 hidden">
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-utensils mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">金許園</h3>
+                        <p class="text-sm text-slate-500 mb-2">超人氣北方麵點，現烙大餅、韭菜盒爆汁滿足。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-eye mr-1"></i>景點</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">馬山觀測站、獅山砲陣地</h3>
+                        <p class="text-sm text-slate-500 mb-2">天下第一哨眺望對岸，觀賞震撼的榴彈砲操表演。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-shrimp mr-1"></i>食物</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">新天地海產店</h3>
+                        <p class="text-sm text-slate-500 mb-2">沙美在地老字號海鮮餐廳，食材新鮮。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5">
+                        <span class="bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-camera-retro mr-1"></i>景點</span>
+                        <span class="bg-pink-50 text-pink-500 text-xs font-bold px-2 py-1 rounded-lg">#必拍</span>
+                    </div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">沙美摩洛哥</h3>
+                        <p class="text-sm text-slate-500 mb-2">老街頹屋變身中東沙漠風情網美勝地，色彩飽和。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/80 relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-slate-300 hover:text-[#3B7AAE] p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3 flex gap-1.5">
+                        <span class="bg-orange-50 text-orange-600 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-cookie-bite mr-1"></i>食物</span>
+                        <span class="bg-yellow-50 text-yellow-600 text-xs font-bold px-2 py-1 rounded-lg">#必買</span>
+                    </div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold text-slate-800 mb-1">愜意甜點工作室</h3>
+                        <p class="text-sm text-slate-500 mb-2">古厝裡藏著的高水準法式小甜點，拍照反差感極美。</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#3B7AAE] text-white rounded-3xl p-5 shadow-md relative">
+                    <button onclick="toggleEdit(this)" class="absolute top-4 right-4 text-white/50 hover:text-white p-1 text-sm transition-colors"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="mb-3"><span class="bg-white/20 text-white text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-plane-arrival mr-1"></i>交通</span></div>
+                    <div class="editable-area">
+                        <h3 class="text-base font-bold mb-1">立榮航空 B7-8962 (18:20 - 19:20)</h3>
+                        <p class="text-sm text-white/90">KNH 金門尚義 ➔ RMQ 台中清泉崗</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <nav class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md h-16 rounded-2xl shadow-xl border border-slate-100 flex justify-around items-center px-2 z-50">
+            <button onclick="switchDay(1)" class="nav-icon flex flex-col items-center justify-center text-[#3B7AAE] transition-all" id="nav-d1">
+                <i class="fa-solid fa-compass text-lg mb-0.5"></i>
+                <span class="text-[10px] font-bold">第一天</span>
+            </button>
+            <button onclick="switchDay(2)" class="nav-icon flex flex-col items-center justify-center text-slate-400 transition-all" id="nav-d2">
+                <i class="fa-solid fa-map-location-dot text-lg mb-0.5"></i>
+                <span class="text-[10px] font-bold">第二天</span>
+            </button>
+            <button onclick="switchDay(3)" class="nav-icon flex flex-col items-center justify-center text-slate-400 transition-all" id="nav-d3">
+                <i class="fa-solid fa-route text-lg mb-0.5"></i>
+                <span class="text-[10px] font-bold">第三天</span>
+            </button>
+            <a href="tel:082322333" class="flex flex-col items-center justify-center text-rose-400">
+                <i class="fa-solid fa-phone-volume text-lg mb-0.5"></i>
+                <span class="text-[10px] font-bold">緊急求助</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <script>
+        // 天數切換功能
+        function switchDay(day) {
+            document.querySelectorAll('.day-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`day${day}-content`).classList.remove('hidden');
+
+            document.querySelectorAll('.day-tab').forEach(btn => {
+                btn.classList.remove('bg-[#3B7AAE]', 'text-white', 'shadow-sm');
+                btn.classList.add('text-slate-400', 'hover:bg-slate-50');
+            });
+            const activeBtn = document.getElementById(`btn-day${day}`);
+            activeBtn.classList.remove('text-slate-400', 'hover:bg-slate-50');
+            activeBtn.classList.add('bg-[#3B7AAE]', 'text-white', 'shadow-sm');
+
+            document.querySelectorAll('.nav-icon').forEach(icon => {
+                icon.classList.remove('text-[#3B7AAE]');
+                icon.classList.add('text-slate-400');
+            });
+            document.getElementById(`nav-d${day}`).classList.remove('text-slate-400');
+            document.getElementById(`nav-d${day}`).classList.add('text-[#3B7AAE]');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 動態編輯開關功能
+        function toggleEdit(button) {
+            // 找到按鈕同層的編輯文字區塊
+            const card = button.parentElement;
+            const editableArea = card.querySelector('.editable-area');
+            const icon = button.querySelector('i');
+            
+            // 判斷當前是否已經在編輯狀態
+            const isEditing = editableArea.getAttribute('contenteditable') === 'true';
+            
+            if (!isEditing) {
+                // 進入編輯狀態
+                editableArea.setAttribute('contenteditable', 'true');
+                editableArea.focus();
+                icon.className = 'fa-solid fa-check text-emerald-500 scale-125'; // 變成綠色打勾圖標
+                
+                // 增加失焦自動保存事件 (如果使用者直接點選其他地方)
+                editableArea.onblur = function() {
+                    editableArea.setAttribute('contenteditable', 'false');
+                    icon.className = 'fa-solid fa-pen-to-square text-slate-300';
+                };
+            } else {
+                // 結束編輯狀態，儲存更新
+                editableArea.setAttribute('contenteditable', 'false');
+                icon.className = 'fa-solid fa-pen-to-square text-slate-300'; // 變回小鉛筆
+            }
+        }
+    </script>
+</body>
+</html>
